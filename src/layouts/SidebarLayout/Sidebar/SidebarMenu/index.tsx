@@ -2,6 +2,7 @@ import { Box, styled } from '@mui/material';
 import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
 import MmsTwoToneIcon from '@mui/icons-material/MmsTwoTone';
 import SubMenue from './SubMenue';
+import i18n from 'src/i18n';
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -26,36 +27,36 @@ const MenuWrapper = styled(Box)(
 
 const menueItems = [
   {
-    label: 'Dashboards',
+    label: i18n.t('Dashboards'),
     children: [
       {
-        label: 'Cryptocurrency',
+        label: i18n.t('Cryptocurrency'),
         link: '/dashboards/crypto',
         icon: <BrightnessLowTwoToneIcon />
       },
       {
-        label: 'Messenger',
+        label: i18n.t('Messenger'),
         link: '/dashboards/messenger',
         icon: <MmsTwoToneIcon />
       }
     ]
   },
   {
-    label: 'TransactionList',
+    label: i18n.t('TransactionList'),
     icon: <MmsTwoToneIcon />,
     children: [
       {
-        label: 'Transaction List',
+        label: i18n.t('TransactionList'),
         link: '/management/transactions',
         icon: <MmsTwoToneIcon />
       },
       {
-        label: 'Profile',
+        label: i18n.t('Profile'),
         link: '/management/profile',
         icon: <MmsTwoToneIcon />,
         children: [
           {
-            label: 'Profile detailes',
+            label: i18n.t('ProfileDetailes'),
             link: '/management/profile/details',
             icon: <MmsTwoToneIcon />
           }
@@ -64,46 +65,46 @@ const menueItems = [
     ]
   },
   {
-    label: 'components',
+    label: i18n.t('components'),
     icon: <MmsTwoToneIcon />,
     children: [
       {
-        label: 'buttons',
+        label: i18n.t('buttons'),
         link: '/components/buttons',
         icon: <MmsTwoToneIcon />
       },
       {
-        label: 'modals',
+        label: i18n.t('modals'),
         link: '/components/modals',
         icon: <MmsTwoToneIcon />
       },
       {
-        label: 'accordions',
+        label: i18n.t('accordions'),
         link: '/components/accordions',
         icon: <MmsTwoToneIcon />
       },
       {
-        label: 'tabs',
+        label: i18n.t('tabs'),
         link: '/components/tabs',
         icon: <MmsTwoToneIcon />
       },
       {
-        label: 'badges',
+        label: i18n.t('badges'),
         link: '/components/badges',
         icon: <MmsTwoToneIcon />
       },
       {
-        label: 'avatars',
+        label: i18n.t('avatars'),
         link: '/components/avatars',
         icon: <MmsTwoToneIcon />
       },
       {
-        label: 'cards',
+        label: i18n.t('cards'),
         link: '/components/cards',
         icon: <MmsTwoToneIcon />
       },
       {
-        label: 'forms',
+        label: i18n.t('forms'),
         link: '/components/forms',
         icon: <MmsTwoToneIcon />
       }

@@ -1,3 +1,17 @@
 {
-  "word": "word"
+  "Dashboards": "Dashboards",
+  "Cryptocurrency": "Cryptocurrency",
+  "Messenger": "Messenger",
+  "TransactionList": "Transaction List",
+  "Profile": "Profilet",
+  "ProfileDetailes": "Profile detailest",
+  "components": "components",
+  "buttons": "buttons",
+  "modals": "modals",
+  "accordions": "accordions",
+  "tabs": "tabs",
+  "badges": "badges",
+  "avatars": "avatars",
+  "cards": "cards",
+  "forms": "forms"
 }

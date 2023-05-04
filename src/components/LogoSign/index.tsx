@@ -94,7 +94,7 @@ const TooltipWrapper = styled(({ className, ...props }: TooltipProps) => (
   }
 }));
 
-function Logo() {
+function Logo({ link = '/' }: { link?: string }) {
   const theme = useTheme();
 
   return (
@@ -102,7 +102,7 @@ function Logo() {
       title="Tokyo Free White React Typescript Admin Dashboard"
       arrow
     >
-      <LogoWrapper to="/">
+      <LogoWrapper to={link}>
         <Badge
           sx={{
             '.MuiBadge-badge': {

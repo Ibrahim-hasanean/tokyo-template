@@ -15,6 +15,7 @@ const Loader = (Component) => (props) =>
   );
 
 // Pages
+const SignInPage = Loader(lazy(() => import('src/content/pages/Auth/SignIn')));
 
 const Overview = Loader(lazy(() => import('src/content/overview')));
 
@@ -80,6 +81,10 @@ const routes: RouteObject[] = [
   {
     path: '',
     element: <Navigate to="dashboards/crypto" />
+  },
+  {
+    path: 'auth/sign-in',
+    element: <SignInPage />
   },
   {
     path: 'dashboards',

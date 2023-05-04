@@ -572,6 +572,9 @@ export const PureLightTheme = createTheme({
         disableRipple: true
       },
       styleOverrides: {
+        disabled: {
+          background: "red"
+        },
         root: {
           fontWeight: 'bold',
           textTransform: 'none',
@@ -580,6 +583,10 @@ export const PureLightTheme = createTheme({
 
           '.MuiSvgIcon-root': {
             transition: 'all .2s'
+          },
+          '&.Mui-disabled ': {
+            background: themeColors.primary,
+            opacity: "0.5"
           }
         },
         endIcon: {
@@ -905,9 +912,9 @@ export const PureLightTheme = createTheme({
         },
         root: {
           '.MuiAutocomplete-inputRoot.MuiOutlinedInput-root .MuiAutocomplete-endAdornment':
-            {
-              right: 14
-            }
+          {
+            right: 14
+          }
         },
         clearIndicator: {
           background: colors.error.lighter,

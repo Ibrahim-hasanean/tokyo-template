@@ -6,6 +6,8 @@ import SidebarLayout from 'src/layouts/SidebarLayout';
 import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
+import { PagesRoutes } from './models/common';
+import ProtectRoute from './content/ProtectRoute';
 
 const Loader = (Component) => (props) =>
   (
@@ -83,11 +85,11 @@ const routes: RouteObject[] = [
     element: <Navigate to="dashboards/crypto" />
   },
   {
-    path: 'auth/sign-in',
+    path: PagesRoutes.signIn.path,
     element: <SignInPage />
   },
   {
-    path: 'dashboards',
+    path: PagesRoutes.dashboards.path,
     element: <SidebarLayout />,
     children: [
       {
@@ -95,17 +97,25 @@ const routes: RouteObject[] = [
         element: <Navigate to="crypto" replace />
       },
       {
-        path: 'crypto',
-        element: <Crypto />
+        path: PagesRoutes.crypto.path,
+        element: (
+          <ProtectRoute permission={'dashboards.cryptocurrency'}>
+            <Crypto />
+          </ProtectRoute>
+        )
       },
       {
-        path: 'messenger',
-        element: <Messenger />
+        path: PagesRoutes.messenger.path,
+        element: (
+          <ProtectRoute permission={'dashboards.messenger'}>
+            <Messenger />
+          </ProtectRoute>
+        )
       }
     ]
   },
   {
-    path: 'management',
+    path: PagesRoutes.management.path,
     element: <SidebarLayout />,
     children: [
       {
@@ -113,30 +123,42 @@ const routes: RouteObject[] = [
         element: <Navigate to="transactions" replace />
       },
       {
-        path: 'transactions',
-        element: <Transactions />
+        path: PagesRoutes.transactions.path,
+        element: (
+          <ProtectRoute permission="transaction.transactionlist">
+            <Transactions />
+          </ProtectRoute>
+        )
       },
       {
-        path: 'profile',
+        path: PagesRoutes.profile.path,
         children: [
           {
             path: '',
             element: <Navigate to="details" replace />
           },
           {
-            path: 'details',
-            element: <UserProfile />
+            path: PagesRoutes.details.path,
+            element: (
+              <ProtectRoute permission="transaction.profileDetailes">
+                <UserProfile />
+              </ProtectRoute>
+            )
           },
           {
-            path: 'settings',
-            element: <UserSettings />
+            path: PagesRoutes.settings.path,
+            element: (
+              <ProtectRoute permission="transaction.settings">
+                <UserSettings />
+              </ProtectRoute>
+            )
           }
         ]
       }
     ]
   },
   {
-    path: '/components',
+    path: PagesRoutes.components.path,
     element: <SidebarLayout />,
     children: [
       {
@@ -144,39 +166,43 @@ const routes: RouteObject[] = [
         element: <Navigate to="buttons" replace />
       },
       {
-        path: 'buttons',
-        element: <Buttons />
+        path: PagesRoutes.buttons.path,
+        element: (
+          <ProtectRoute>
+            <Buttons />
+          </ProtectRoute>
+        )
       },
       {
-        path: 'modals',
+        path: PagesRoutes.modals.path,
         element: <Modals />
       },
       {
-        path: 'accordions',
+        path: PagesRoutes.accordions.path,
         element: <Accordions />
       },
       {
-        path: 'tabs',
+        path: PagesRoutes.tabs.path,
         element: <Tabs />
       },
       {
-        path: 'badges',
+        path: PagesRoutes.badges.path,
         element: <Badges />
       },
       {
-        path: 'tooltips',
+        path: PagesRoutes.tooltips.path,
         element: <Tooltips />
       },
       {
-        path: 'avatars',
+        path: PagesRoutes.avatars.path,
         element: <Avatars />
       },
       {
-        path: 'cards',
+        path: PagesRoutes.cards.path,
         element: <Cards />
       },
       {
-        path: 'forms',
+        path: PagesRoutes.forms.path,
         element: <Forms />
       }
     ]

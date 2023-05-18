@@ -3,6 +3,7 @@ import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
 import MmsTwoToneIcon from '@mui/icons-material/MmsTwoTone';
 import SubMenue from './SubMenue';
 import i18n from 'src/i18n';
+import { PagesRoutes } from 'src/models/common';
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -31,12 +32,12 @@ const menueItems = [
     children: [
       {
         label: i18n.t('Cryptocurrency'),
-        link: '/dashboards/crypto',
+        link: PagesRoutes.crypto.path,
         icon: <BrightnessLowTwoToneIcon />
       },
       {
         label: i18n.t('Messenger'),
-        link: '/dashboards/messenger',
+        link: PagesRoutes.messenger.path,
         icon: <MmsTwoToneIcon />
       }
     ]
@@ -47,17 +48,16 @@ const menueItems = [
     children: [
       {
         label: i18n.t('TransactionList'),
-        link: '/management/transactions',
+        link: PagesRoutes.transactions.path,
         icon: <MmsTwoToneIcon />
       },
       {
         label: i18n.t('Profile'),
-        link: '/management/profile',
         icon: <MmsTwoToneIcon />,
         children: [
           {
             label: i18n.t('ProfileDetailes'),
-            link: '/management/profile/details',
+            link: PagesRoutes.details.path,
             icon: <MmsTwoToneIcon />
           }
         ]
@@ -70,32 +70,32 @@ const menueItems = [
     children: [
       {
         label: i18n.t('buttons'),
-        link: '/components/buttons',
+        link: PagesRoutes.buttons.path,
         icon: <MmsTwoToneIcon />
       },
       {
         label: i18n.t('modals'),
-        link: '/components/modals',
+        link: PagesRoutes.modals.path,
         icon: <MmsTwoToneIcon />
       },
       {
         label: i18n.t('accordions'),
-        link: '/components/accordions',
+        link: PagesRoutes.accordions.path,
         icon: <MmsTwoToneIcon />
       },
       {
         label: i18n.t('tabs'),
-        link: '/components/tabs',
+        link: PagesRoutes.tabs.path,
         icon: <MmsTwoToneIcon />
       },
       {
         label: i18n.t('badges'),
-        link: '/components/badges',
+        link: PagesRoutes.badges.path,
         icon: <MmsTwoToneIcon />
       },
       {
         label: i18n.t('avatars'),
-        link: '/components/avatars',
+        link: PagesRoutes.avatars.path,
         icon: <MmsTwoToneIcon />
       },
       {
@@ -105,7 +105,7 @@ const menueItems = [
       },
       {
         label: i18n.t('forms'),
-        link: '/components/forms',
+        link: PagesRoutes.forms.path,
         icon: <MmsTwoToneIcon />
       }
     ]

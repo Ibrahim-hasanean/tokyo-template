@@ -1,8 +1,8 @@
-import { Role, Routes } from "src/models/common";
+import { Role, PagesRoutes } from "src/models/common";
 
 
 
-export const permissions = {
-    [Role.Admin]: [...Object.values(Routes)],
-    [Role.User]: [Routes.management, Routes.transactions, Routes.profile, Routes.details, Routes.settings]
+export const Roles = {
+    [Role.Admin]: [...Object.values(PagesRoutes)],
+    [Role.User]: [PagesRoutes.management, PagesRoutes.transactions, PagesRoutes.profile, PagesRoutes.details, PagesRoutes.settings]
 }

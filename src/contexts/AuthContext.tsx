@@ -1,4 +1,4 @@
-import { FC, useState, createContext } from 'react';
+import { FC, useState, createContext, useEffect } from 'react';
 import { signIn } from 'src/fakeData/fakeData';
 import { IUser, PagesRoutes, Role } from 'src/models/common';
 import { useNavigate } from 'react-router-dom';
@@ -28,8 +28,19 @@ export const AuthProvider: FC = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
   const [userRole, setUserRole] = useState<Role>();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>();
   const navigate = useNavigate();
+  console.log('dddddddddddddddd', user, isAuthenticated, userRole);
+  useEffect(() => {
+    // setUser(
+    //   localStorage.getItem('user')
+    //     ? JSON.parse(localStorage.getItem('user'))
+    //     : undefined
+    // );
+    // setUserRole(Role[localStorage.getItem('userRole')]);
+    // setIsAuthenticated(!!localStorage.getItem('isAuthenticated'));
+  }, []);
+
   const login = (userName: string, password: string) => {
     setLoading(true);
     const user = signIn(userName, password);
@@ -42,6 +53,9 @@ export const AuthProvider: FC = ({ children }) => {
         setAuthData({ user, isAuthenticated: true, userRole: user.role });
         navigate(PagesRoutes.dashboards.path);
         setError(undefined);
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('userRole', userRole.toString());
       }
       setLoading(false);
     }, 3000);

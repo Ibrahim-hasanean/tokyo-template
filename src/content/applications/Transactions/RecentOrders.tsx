@@ -2,6 +2,9 @@ import { Card } from '@mui/material';
 import { CryptoOrder } from 'src/models/crypto_order';
 import RecentOrdersTable from './RecentOrdersTable';
 import { subDays } from 'date-fns';
+import { DataTable } from 'src/components/DataTable';
+import { useMemo } from 'react';
+import { ColumnDef } from '@tanstack/react-table';
 
 function RecentOrders() {
   const cryptoOrders: CryptoOrder[] = [
@@ -136,9 +139,25 @@ function RecentOrders() {
       currency: '$'
     }
   ];
+  const columns = useMemo<ColumnDef<CryptoOrder>[]>(
+    () => [
+      {
+        header: 'Order Details',
+        cell: (row) => row.renderValue(),
+        accessorKey: 'orderDetails'
+      },
+      {
+        header: 'Order ID',
+        cell: (row) => row.renderValue(),
+        accessorKey: 'orderID'
+      }
+    ],
+    []
+  );
 
   return (
     <Card>
+      {/* <DataTable columns={columns} data={cryptoOrders} /> */}
       <RecentOrdersTable cryptoOrders={cryptoOrders} />
     </Card>
   );

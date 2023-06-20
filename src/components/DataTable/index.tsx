@@ -4,7 +4,9 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  Box,
+  TablePagination
 } from '@mui/material';
 import {
   getCoreRowModel,
@@ -12,15 +14,33 @@ import {
   flexRender
 } from '@tanstack/react-table';
 import type { ColumnDef } from '@tanstack/react-table';
+import { ChangeEventHandler, MouseEvent } from 'react';
 
 interface ReactTableProps<T extends object> {
   data: T[];
   columns: ColumnDef<T>[];
+  showPagination?: boolean;
+  count?: number;
+  page?: number;
+  limit?: number;
+  handlePageChange?: (
+    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+    page: number
+  ) => void;
+  onRowsPerPageChange?: ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  >;
 }
 
 export const DataTable = <T extends object>({
   data,
-  columns
+  columns,
+  showPagination = false,
+  count,
+  page,
+  limit,
+  handlePageChange,
+  onRowsPerPageChange
 }: ReactTableProps<T>) => {
   const table = useReactTable({
     data,
@@ -59,6 +79,19 @@ export const DataTable = <T extends object>({
           ))}
         </TableBody>
       </Table>
+      {showPagination && (
+        <Box p={2}>
+          <TablePagination
+            component="div"
+            count={count}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={onRowsPerPageChange}
+            page={page}
+            rowsPerPage={limit}
+            rowsPerPageOptions={[5, 10, 25, 30]}
+          />
+        </Box>
+      )}
     </TableContainer>
   );
 };

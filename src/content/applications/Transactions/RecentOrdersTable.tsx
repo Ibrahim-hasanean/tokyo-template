@@ -301,8 +301,17 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
         />
       )}
       <Divider />
-      <DataTable<CryptoOrder> columns={columns} data={cryptoOrders} />
-      {/* <Box p={2}>
+      <DataTable<CryptoOrder>
+        columns={columns}
+        data={cryptoOrders}
+        count={filteredCryptoOrders.length}
+        // showPagination={true}
+        handlePageChange={handlePageChange}
+        onRowsPerPageChange={handleLimitChange}
+        page={page}
+        limit={limit}
+      />
+      <Box p={2}>
         <TablePagination
           component="div"
           count={filteredCryptoOrders.length}
@@ -312,7 +321,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
           rowsPerPage={limit}
           rowsPerPageOptions={[5, 10, 25, 30]}
         />
-      </Box> */}
+      </Box>
     </Card>
   );
 };

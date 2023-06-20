@@ -137,6 +137,45 @@ function RecentOrders() {
       amount: 7567,
       cryptoCurrency: 'ADA',
       currency: '$'
+    },
+    {
+      id: '11',
+      orderDetails: 'Wallet Transfer',
+      orderDate: subDays(new Date(), 123).getTime(),
+      status: 'failed',
+      orderID: '17KRZHY8T05M',
+      sourceName: 'Wallet Transfer',
+      sourceDesc: "John's Cardano Wallet",
+      amountCrypto: 765.5695,
+      amount: 7567,
+      cryptoCurrency: 'ADA',
+      currency: '$'
+    },
+    {
+      id: '12',
+      orderDetails: 'Wallet Transfer12',
+      orderDate: subDays(new Date(), 123).getTime(),
+      status: 'failed',
+      orderID: '17KRZHY8T05M',
+      sourceName: 'Wallet Transfer',
+      sourceDesc: "John's Cardano Wallet",
+      amountCrypto: 765.5695,
+      amount: 7567,
+      cryptoCurrency: 'ADA',
+      currency: '$'
+    },
+    {
+      id: '13',
+      orderDetails: 'Wallet Transfer13',
+      orderDate: subDays(new Date(), 123).getTime(),
+      status: 'failed',
+      orderID: '17KRZHY8T05M',
+      sourceName: 'Wallet Transfer',
+      sourceDesc: "John's Cardano Wallet",
+      amountCrypto: 765.5695,
+      amount: 7567,
+      cryptoCurrency: 'ADA',
+      currency: '$'
     }
   ];
   const columns = useMemo<ColumnDef<CryptoOrder>[]>(
@@ -157,7 +196,6 @@ function RecentOrders() {
 
   return (
     <Card>
-      {/* <DataTable columns={columns} data={cryptoOrders} /> */}
       <RecentOrdersTable cryptoOrders={cryptoOrders} />
     </Card>
   );

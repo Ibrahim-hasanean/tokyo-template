@@ -91,13 +91,12 @@ const applyPagination = (
 ): CryptoOrder[] => {
   return cryptoOrders.slice(page * limit, page * limit + limit);
 };
-const columnHelper = createColumnHelper<CryptoOrder>();
 
 const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
-  const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
-    []
+  const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<Record<string,boolean>>(
+    {}
   );
-  const selectedBulkActions = selectedCryptoOrders.length > 0;
+  const selectedBulkActions = Object.values(selectedCryptoOrders).filter(x => x).length > 0;
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(5);
   const [filters, setFilters] = useState<Filters>({
@@ -112,87 +111,97 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
 
   const columns = useMemo<ColumnDef<CryptoOrder>[]>(
     () => [
-      {
-        header: '',
-        id: 'select',
-        cell: (info) => info.getValue(),
-        accessorFn: (row) => {
-          const isCryptoOrderSelected = selectedCryptoOrders.includes(row?.id);
-          return (
-            <Checkbox
-              color="primary"
-              checked={isCryptoOrderSelected}
-              onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                handleSelectOneCryptoOrder(event, row?.id)
-              }
-              value={isCryptoOrderSelected}
-            />
-          );
-        }
+    {
+      id: 'select',
+      header: ({ table  }) => {
+        return (
+          <Checkbox
+            color="primary"
+           {...{
+              checked: table.getIsAllRowsSelected(),
+              indeterminate: table.getIsSomeRowsSelected(),
+              onChange: table.getToggleAllRowsSelectedHandler(),
+            }}
+          />
+        );
       },
-      {
-        header: 'ORDER DETAILS',
-        cell: (info) => info.renderValue(),
-        accessorKey: 'orderDetails'
-      },
-      {
-        header: 'Order Id',
-        cell: (info) => info.renderValue(),
-        accessorKey: 'orderID'
-      },
-      {
-        header: 'SOURCE',
-        cell: (info) => info.renderValue(),
-        accessorKey: 'sourceName'
-      },
-      {
-        header: 'AMOUNT',
-        cell: (info) => info.renderValue(),
-        accessorKey: 'amount'
-      },
-      {
-        header: 'STATUS',
-        id: 'status',
-        cell: (info) => info.renderValue(),
-        accessorKey: 'status',
-        accessorFn: (row) => getStatusLabel(row.status)
-      },
-      {
-        header: 'ACTIONS',
-        id: 'actions',
-        cell: (info) => info.getValue(),
-        accessorFn: (row) => (
-          <>
-            <Tooltip title="Edit Order" arrow>
-              <IconButton
-                sx={{
-                  '&:hover': {
-                    background: theme.colors.primary.lighter
-                  },
-                  color: theme.palette.primary.main
-                }}
-                color="inherit"
-                size="small"
-              >
-                <EditTwoToneIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Delete Order" arrow>
-              <IconButton
-                sx={{
-                  '&:hover': { background: theme.colors.error.lighter },
-                  color: theme.palette.error.main
-                }}
-                color="inherit"
-                size="small"
-              >
-                <DeleteTwoToneIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-          </>
-        )
+      cell: ({row  }) => {
+        return (
+          <Checkbox
+            color="primary"
+          {...{
+                checked: row.getIsSelected(),
+                disabled: !row.getCanSelect(),
+                indeterminate: row.getIsSomeSelected(),
+                onChange: row.getToggleSelectedHandler(),
+              }}
+          />
+        );
       }
-    ],
+    },
+    {
+      header: 'ORDER DETAILS',
+      cell: (info) => info.renderValue(),
+      accessorKey: 'orderDetails'
+    },
+    {
+      header: 'Order Id',
+      cell: (info) => info.renderValue(),
+      accessorKey: 'orderID'
+    },
+    {
+      header: 'SOURCE',
+      cell: (info) => info.renderValue(),
+      accessorKey: 'sourceName'
+    },
+    {
+      header: 'AMOUNT',
+      cell: (info) => info.renderValue(),
+      accessorKey: 'amount'
+    },
+    {
+      header: 'STATUS',
+      id: 'status',
+      cell: (info) => info.renderValue(),
+      accessorKey: 'status',
+      accessorFn: (row) => getStatusLabel(row.status)
+    },
+    {
+      header: 'ACTIONS',
+      id: 'actions',
+      cell: (info) => info.getValue(),
+      accessorFn: (row) => (
+        <>
+          <Tooltip title="Edit Order" arrow>
+            <IconButton
+              sx={{
+                '&:hover': {
+                  background: theme.colors.primary.lighter
+                },
+                color: theme.palette.primary.main
+              }}
+              color="inherit"
+              size="small"
+            >
+              <EditTwoToneIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete Order" arrow>
+            <IconButton
+              sx={{
+                '&:hover': { background: theme.colors.error.lighter },
+                color: theme.palette.error.main
+              }}
+              color="inherit"
+              size="small"
+            >
+              <DeleteTwoToneIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        </>
+      )
+    }
+  ],
     []
   );
 
@@ -228,32 +237,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
     }));
   };
 
-  const handleSelectAllCryptoOrders = (
-    event: ChangeEvent<HTMLInputElement>
-  ): void => {
-    setSelectedCryptoOrders(
-      event.target.checked
-        ? cryptoOrders.map((cryptoOrder) => cryptoOrder.id)
-        : []
-    );
-  };
-
-  const handleSelectOneCryptoOrder = (
-    event: ChangeEvent<HTMLInputElement>,
-    cryptoOrderId: string
-  ): void => {
-    if (!selectedCryptoOrders.includes(cryptoOrderId)) {
-      setSelectedCryptoOrders((prevSelected) => [
-        ...prevSelected,
-        cryptoOrderId
-      ]);
-    } else {
-      setSelectedCryptoOrders((prevSelected) =>
-        prevSelected.filter((id) => id !== cryptoOrderId)
-      );
-    }
-  };
-
   const handlePageChange = (event: any, newPage: number): void => {
     setPage(newPage);
   };
@@ -261,12 +244,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   const handleLimitChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setLimit(parseInt(event.target.value));
   };
-
-  const selectedSomeCryptoOrders =
-    selectedCryptoOrders.length > 0 &&
-    selectedCryptoOrders.length < cryptoOrders.length;
-  const selectedAllCryptoOrders =
-    selectedCryptoOrders.length === cryptoOrders.length;
   const theme = useTheme();
 
   return (
@@ -308,6 +285,8 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
         // showPagination={true}
         handlePageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
+        setRowSelection={setSelectedCryptoOrders}
+        rowSelection={selectedCryptoOrders}
         page={page}
         limit={limit}
       />

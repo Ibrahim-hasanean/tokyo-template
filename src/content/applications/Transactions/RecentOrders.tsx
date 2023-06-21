@@ -5,8 +5,6 @@ import { subDays } from 'date-fns';
 import { DataTable } from 'src/components/DataTable';
 import { useMemo } from 'react';
 import { ColumnDef } from '@tanstack/react-table';
-
-function RecentOrders() {
   const cryptoOrders: CryptoOrder[] = [
     {
       id: '1',
@@ -178,21 +176,7 @@ function RecentOrders() {
       currency: '$'
     }
   ];
-  const columns = useMemo<ColumnDef<CryptoOrder>[]>(
-    () => [
-      {
-        header: 'Order Details',
-        cell: (row) => row.renderValue(),
-        accessorKey: 'orderDetails'
-      },
-      {
-        header: 'Order ID',
-        cell: (row) => row.renderValue(),
-        accessorKey: 'orderID'
-      }
-    ],
-    []
-  );
+function RecentOrders() {
 
   return (
     <Card>

@@ -13,8 +13,8 @@ import {
   useReactTable,
   flexRender
 } from '@tanstack/react-table';
-import type { ColumnDef } from '@tanstack/react-table';
-import { ChangeEventHandler, MouseEvent } from 'react';
+import type { ColumnDef, RowSelectionState } from '@tanstack/react-table';
+import { ChangeEventHandler, Dispatch, MouseEvent, SetStateAction } from 'react';
 
 interface ReactTableProps<T extends object> {
   data: T[];
@@ -30,6 +30,8 @@ interface ReactTableProps<T extends object> {
   onRowsPerPageChange?: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   >;
+  rowSelection?: RowSelectionState;
+  setRowSelection?:Dispatch<SetStateAction<Record<string, boolean>>>
 }
 
 export const DataTable = <T extends object>({
@@ -40,12 +42,20 @@ export const DataTable = <T extends object>({
   page,
   limit,
   handlePageChange,
-  onRowsPerPageChange
+  onRowsPerPageChange,
+  rowSelection = {},
+  setRowSelection
 }: ReactTableProps<T>) => {
   const table = useReactTable({
     data,
-    columns,
-    getCoreRowModel: getCoreRowModel()
+    columns: columns,    
+    getCoreRowModel: getCoreRowModel(),
+    state: {
+      rowSelection
+    },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+
   });
 
   return (

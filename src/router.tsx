@@ -128,7 +128,17 @@ const routes: RouteObject[] = [
           <ProtectRoute permission="transaction.transactionlist">
             <Transactions />
           </ProtectRoute>
-        )
+        ),
+        children: [
+        {
+            path: PagesRoutes.transactionsChild.path,
+            element: (
+              <ProtectRoute permission={'dashboards.cryptocurrency'}>
+                <Crypto />
+              </ProtectRoute>
+            )
+        },
+        ]
       },
       {
         path: PagesRoutes.profile.path,

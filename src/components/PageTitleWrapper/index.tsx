@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Container, styled } from '@mui/material';
+import BreadCrumb from '../BreadCrumb';
 
 const PageTitle = styled(Box)(
   ({ theme }) => `
@@ -15,7 +16,12 @@ interface PageTitleWrapperProps {
 const PageTitleWrapper: FC<PageTitleWrapperProps> = ({ children }) => {
   return (
     <PageTitle className="MuiPageTitle-wrapper">
-      <Container maxWidth="lg">{children}</Container>
+      <Container maxWidth="lg">
+        <BreadCrumb />
+        <div>
+          {children}
+        </div>
+      </Container>
     </PageTitle>
   );
 };

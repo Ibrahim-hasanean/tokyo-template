@@ -1,6 +1,4 @@
 import { FC, ChangeEvent, useState, useMemo } from 'react';
-import { format } from 'date-fns';
-import numeral from 'numeral';
 import PropTypes from 'prop-types';
 import {
   Tooltip,
@@ -10,16 +8,9 @@ import {
   InputLabel,
   Card,
   Checkbox,
-  IconButton,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  TableContainer,
+  IconButton,  
   Select,
   MenuItem,
-  Typography,
   useTheme,
   CardHeader
 } from '@mui/material';
@@ -28,14 +19,9 @@ import Label from 'src/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from 'src/models/crypto_order';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-// import { Column, usePagination, useTable } from 'react-table';
 import BulkActions from './BulkActions';
 import {
   ColumnDef,
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable
 } from '@tanstack/react-table';
 import { DataTable } from 'src/components/DataTable';
 
@@ -280,9 +266,9 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
       <Divider />
       <DataTable<CryptoOrder>
         columns={columns}
-        data={cryptoOrders}
+        data={paginatedCryptoOrders}
         count={filteredCryptoOrders.length}
-        // showPagination={true}
+        showPagination={true}
         handlePageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         setRowSelection={setSelectedCryptoOrders}
@@ -290,17 +276,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
         page={page}
         limit={limit}
       />
-      <Box p={2}>
-        <TablePagination
-          component="div"
-          count={filteredCryptoOrders.length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-          page={page}
-          rowsPerPage={limit}
-          rowsPerPageOptions={[5, 10, 25, 30]}
-        />
-      </Box>
     </Card>
   );
 };

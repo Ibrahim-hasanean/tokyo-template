@@ -47,9 +47,20 @@ const menueItems = [
     icon: <MmsTwoToneIcon />,
     children: [
       {
-        label: i18n.t('TransactionList'),
-        link: PagesRoutes.transactions.path,
-        icon: <MmsTwoToneIcon />
+        label: "transactions",
+        icon: <MmsTwoToneIcon />,
+        children: [
+          {
+            label: i18n.t('TransactionList'),
+            link: PagesRoutes.transactions.path,
+            icon: <MmsTwoToneIcon />
+          },
+          {
+            label: i18n.t('Cryptocurrency'),
+            link: PagesRoutes.transactionsChild.path,
+            icon: <MmsTwoToneIcon />
+          }
+        ]
       },
       {
         label: i18n.t('Profile'),

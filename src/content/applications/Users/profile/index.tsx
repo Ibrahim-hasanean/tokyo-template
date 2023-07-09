@@ -9,6 +9,7 @@ import Feed from './Feed';
 import PopularTags from './PopularTags';
 import MyCards from './MyCards';
 import Addresses from './Addresses';
+import PageTitleWrapper from 'src/components/PageTitleWrapper';
 
 function ManagementUserProfile() {
   const user = {
@@ -28,6 +29,7 @@ function ManagementUserProfile() {
       <Helmet>
         <title>User Details - Management</title>
       </Helmet>
+          <PageTitleWrapper><div></div></PageTitleWrapper>
       <Container sx={{ mt: 3 }} maxWidth="lg">
         <Grid
           container

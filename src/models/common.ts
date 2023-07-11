@@ -27,11 +27,11 @@ export const permissions = {
 export type permissionsNames = keyof typeof permissions;
 
 export const PagesRoutes = {
-    signIn: { path: "/auth/sign-in" },
+    signIn: { path: "auth/sign-in" },
     dashboards: { path: "" },
     crypto: { path: "dashboards/crypto", permission: permissions["dashboards.cryptocurrency"] },
     messenger: { path: "dashboards/messenger", permission: permissions["dashboards.messenger"] },
-    management: { path: "management" },
+    management: { path: "/" },
     transactions: { path: "management/transactions", permission: permissions["transaction.transactionlist"] },
     transactionsChild: { path: "management/transactions/child", permission: permissions["transaction.transactionlist"] },
     profile: { path: "", permission: permissions["transaction.profile"] },

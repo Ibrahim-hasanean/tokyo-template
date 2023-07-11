@@ -18,9 +18,7 @@ const PageTitleWrapper: FC<PageTitleWrapperProps> = ({ children }) => {
     <PageTitle className="MuiPageTitle-wrapper">
       <Container maxWidth="lg">
         <BreadCrumb />
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </Container>
     </PageTitle>
   );

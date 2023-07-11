@@ -8,6 +8,7 @@ import BaseLayout from 'src/layouts/BaseLayout';
 import SuspenseLoader from 'src/components/SuspenseLoader';
 import { PagesRoutes } from './models/common';
 import ProtectRoute from './content/ProtectRoute';
+import { BreadcrumbsRoute } from 'use-react-router-breadcrumbs';
 
 const Loader = (Component) => (props) =>
   (
@@ -79,9 +80,9 @@ const StatusMaintenance = Loader(
   lazy(() => import('src/content/pages/Status/Maintenance'))
 );
 
-const routes: RouteObject[] = [
+const routes: BreadcrumbsRoute[] = [
   {
-    path: '',
+    path: '/',
     element: <Navigate to="dashboards/crypto" />
   },
   {
@@ -93,8 +94,8 @@ const routes: RouteObject[] = [
     element: <SidebarLayout />,
     children: [
       {
-        path: '',
-        element: <Navigate to="crypto" replace />
+        path: '/',
+        element: <Navigate to={PagesRoutes.crypto.path} replace />
       },
       {
         path: PagesRoutes.crypto.path,
@@ -102,7 +103,8 @@ const routes: RouteObject[] = [
           <ProtectRoute permission={'dashboards.cryptocurrency'}>
             <Crypto />
           </ProtectRoute>
-        )
+        ),
+        breadcrumb: 'cryptoooo'
       },
       {
         path: PagesRoutes.messenger.path,
@@ -119,8 +121,8 @@ const routes: RouteObject[] = [
     element: <SidebarLayout />,
     children: [
       {
-        path: '',
-        element: <Navigate to="transactions" replace />
+        path: '/',
+        element: <Navigate to={PagesRoutes.transactions.path} replace />
       },
       {
         path: PagesRoutes.transactions.path,
@@ -130,14 +132,14 @@ const routes: RouteObject[] = [
           </ProtectRoute>
         ),
         children: [
-        {
+          {
             path: PagesRoutes.transactionsChild.path,
             element: (
               <ProtectRoute permission={'dashboards.cryptocurrency'}>
                 <Crypto />
               </ProtectRoute>
             )
-        },
+          }
         ]
       },
       {
@@ -145,7 +147,8 @@ const routes: RouteObject[] = [
         children: [
           {
             path: '',
-            element: <Navigate to="details" replace />
+            element: <Navigate to="details" replace />,
+            breadcrumb: 'details'
           },
           {
             path: PagesRoutes.details.path,
@@ -153,7 +156,8 @@ const routes: RouteObject[] = [
               <ProtectRoute permission="transaction.profileDetailes">
                 <UserProfile />
               </ProtectRoute>
-            )
+            ),
+            breadcrumb: 'profile detailes'
           },
           {
             path: PagesRoutes.settings.path,
@@ -161,7 +165,8 @@ const routes: RouteObject[] = [
               <ProtectRoute permission="transaction.settings">
                 <UserSettings />
               </ProtectRoute>
-            )
+            ),
+            breadcrumb: 'settings'
           }
         ]
       }
@@ -181,15 +186,18 @@ const routes: RouteObject[] = [
           <ProtectRoute>
             <Buttons />
           </ProtectRoute>
-        )
+        ),
+        breadcrumb: 'buttons'
       },
       {
         path: PagesRoutes.modals.path,
-        element: <Modals />
+        element: <Modals />,
+        breadcrumb: 'modals'
       },
       {
         path: PagesRoutes.accordions.path,
-        element: <Accordions />
+        element: <Accordions />,
+        breadcrumb: 'accordions'
       },
       {
         path: PagesRoutes.tabs.path,
